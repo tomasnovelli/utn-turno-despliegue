@@ -9,7 +9,6 @@ const Home = () => {
     const { productos, getUserData, logout, searchTerm, handleChangeSearchTerm } = useGlobalContext()
 
     const userLoged = getUserData()
-
     return (
         <div>
             {userLoged
@@ -38,7 +37,7 @@ const Home = () => {
             }
 
             <h1>Elige nuestros productos</h1>
-            <input type="text" name='text' onChange={handleChangeSearchTerm} value={searchTerm} />
+            <input type="text" name='name' onChange={handleChangeSearchTerm} value={searchTerm} />
             <ProductList products={productos} />
 
 

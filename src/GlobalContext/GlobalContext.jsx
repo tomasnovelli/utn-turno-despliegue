@@ -13,17 +13,16 @@ export const GlobalContextProvider = ({ children }) => {
     const [searchTerm, setSearchTheme] = useState('')
     const navigation = useNavigate()
 
-    const handleChangeSearchTerm = ( e )  =>{
-        setSearchTheme(e.targe.value)
+    const handleChangeSearchTerm = (e) => {
+        setSearchTheme(e.target.value)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const productList = obtenerProductos()
-        console.log(searchTerm);
-        if(searchTerm != ''){
+        if (searchTerm != '') {
             const nerProductList = productList.filter(product => product.nombre.toLowerCase().includes(searchTerm.toLowerCase()))
             setProductos(nerProductList)
-        } else{
+        } else {
             setProductos(productList)
         }
     }, [searchTerm])
@@ -32,13 +31,13 @@ export const GlobalContextProvider = ({ children }) => {
         setProductos(eliminarProdcutoPorId(codigo))
         navigation('/')
     }
-/*     const handleCreateProduct = (e, nuevoProducto) => {
-        console.log('producto creado')
-        e.preventDefault()
-        setProductos(crearProducto(nuevoProducto, nuevoProducto.id = uuid()))
-        
-    } */
-    const handleCreateProduct = (e) =>{
+    /*     const handleCreateProduct = (e, nuevoProducto) => {
+            console.log('producto creado')
+            e.preventDefault()
+            setProductos(crearProducto(nuevoProducto, nuevoProducto.id = uuid()))
+            
+        } */
+    const handleCreateProduct = (e) => {
         e.preventDefault()
         const formulario = e.target
         const formularioValores = new FormData(formulario)
@@ -50,11 +49,11 @@ export const GlobalContextProvider = ({ children }) => {
             codigo: '',
             categoria: ''
         }
-        for(let propiedad in nuevoProducto){
+        for (let propiedad in nuevoProducto) {
             nuevoProducto[propiedad] = formularioValores.get(propiedad)
         }
         nuevoProducto.id = uuid()
-        
+
         setProductos([...productos, nuevoProducto])
         crearProducto(nuevoProducto)
         navigation('/')
